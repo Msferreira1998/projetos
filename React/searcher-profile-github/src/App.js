@@ -1,10 +1,11 @@
 import Navbar from './Components/Navbar';
-import { Container } from './GlobalStyles/GlobalStyles';
+import Routes from './routes';
 
 function App() {
   return (
     <div>
       <Navbar />
+      <Routes />
     </div>
   );
 }
