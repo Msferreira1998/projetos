@@ -1,11 +1,14 @@
 import Navbar from './Components/Navbar';
+import { ContextProvider } from './Context';
 import Routes from './routes';
+import { Router } from 'react-router-dom';
 
 function App() {
   return (
     <div>
-      <Navbar />
-      <Routes />
+      <ContextProvider>
+        <Routes />
+      </ContextProvider>
     </div>
   );
 }

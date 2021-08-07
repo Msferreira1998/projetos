@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { context } from '../../Context/';
 import { Container } from '../../GlobalStyles/GlobalStyles';
+import Navbar from '../../Components/Navbar';
 import {
   FichaContainer,
   TitleFicha,
@@ -9,28 +11,59 @@ import {
   InfoTitle,
   Info,
   InfoP,
+  TitleRepos,
+  InfoRepos,
+  RepoLink,
+  Description,
+  TitleRepo,
 } from './styles';
 
 function UserSearched() {
+  const ctx = useContext(context);
   return (
-    <Container>
-      <FichaContainer>
-        <TitleFicha>GitHub</TitleFicha>
-        <FotoFicha src="https://avatars.githubusercontent.com/u/70543896?v=4"></FotoFicha>
-        <NVFicha>10</NVFicha>
-        <InfosContainer>
-          <Info>
-            <InfoTitle>Nome</InfoTitle>
-            <InfoP>Matheus Ferreira</InfoP>
-          </Info>
+    <React.Fragment>
+      <Navbar />
+      <Container>
+        {ctx.userData.id ? (
+          <FichaContainer>
+            <TitleFicha>GitHub</TitleFicha>
+            <FotoFicha src={ctx.userData?.avatar_url}></FotoFicha>
+            <NVFicha>{ctx.userData?.public_repos}</NVFicha>
+            <InfosContainer>
+              <Info>
+                <InfoTitle>Nome</InfoTitle>
+                <InfoP>
+                  {ctx.userData.name
+                    ? ctx.userData?.name.split(' ')[0]
+                    : undefined}
+                </InfoP>
+              </Info>
 
-          <Info>
-            <InfoTitle>Personagem</InfoTitle>
-            <InfoP>Msferreira1998</InfoP>
-          </Info>
-        </InfosContainer>
-      </FichaContainer>
-    </Container>
+              <Info>
+                <InfoTitle>Personagem</InfoTitle>
+                <InfoP>{ctx.userData?.login}</InfoP>
+              </Info>
+            </InfosContainer>
+
+            <InfosContainer>
+              <TitleRepos>Habilidades</TitleRepos>
+              <InfoRepos>
+                {ctx.repos.map(val => {
+                  return (
+                    <RepoLink key={val.id} href={val.html_url}>
+                      <TitleRepo>{val.name}</TitleRepo>
+                      <Description>
+                        {val.description ? val.description : 'Sem Descrição'}
+                      </Description>
+                    </RepoLink>
+                  );
+                })}
+              </InfoRepos>
+            </InfosContainer>
+          </FichaContainer>
+        ) : undefined}
+      </Container>
+    </React.Fragment>
   );
 }
 
