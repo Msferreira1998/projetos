@@ -9,6 +9,7 @@ export const FichaContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
+  margin-bottom: 20px;
 `;
 
 export const TitleFicha = styled.h1`
@@ -108,6 +109,10 @@ export const RepoLink = styled.a`
   margin: 2px;
   border: 1px solid #222;
   border-radius: 5px;
+
+  &&:hover {
+    background-color: #cccccc;
+  }
 `;
 
 export const TitleRepo = styled.h3`

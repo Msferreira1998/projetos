@@ -34,6 +34,11 @@ function Navbar() {
         <styles.NavInput
           type="text"
           onChange={e => setGetUser(e.target.value)}
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              getUserData();
+            }
+          }}
         />
         <styles.NavButton onClick={getUserData}>
           <FaSearch />
