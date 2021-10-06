@@ -3,8 +3,13 @@
         <ContainerBox>
             <Title>Github Profile Search</Title>
             <SearchBox>
-                <Input type="text" placeholder="User Id" />
-                <Button><AccountSearchOutline /></Button>
+                <Input
+                    @keypress.enter="search"
+                    type="text"
+                    placeholder="User Id"
+                    v-model="UserId"
+                />
+                <Button @click="search"><AccountSearchOutline /></Button>
             </SearchBox>
             <Chill src="./img/chill.gif" />
         </ContainerBox>
@@ -22,6 +27,20 @@ import {
 } from './seacher';
 import AccountSearchOutline from 'vue-material-design-icons/AccountSearchOutline.vue';
 export default {
+    data() {
+        return {
+            UserId: '',
+        };
+    },
+    methods: {
+        search() {
+            if (this.UserId.length <= 0) {
+                alert('Preencha o campo de busca');
+                return;
+            }
+            this.$router.push(`/user/${this.UserId}`);
+        },
+    },
     components: {
         Button,
         Title,

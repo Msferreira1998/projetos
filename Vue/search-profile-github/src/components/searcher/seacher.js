@@ -7,10 +7,13 @@ export const ContainerBox = styled.div`
     align-items: center;
     border-radius: 10px;
     padding: 20px;
-    width: min(40rem, 100%);
+    width: min(40rem, 100vw);
     background-color: bisque;
     -webkit-box-shadow: 0px 3px 20px -3px #000000;
     box-shadow: 0px 3px 20px -3px #000000;
+
+    @media (max-width: 650px) {
+    }
 `;
 
 export const Title = styled.h1`
