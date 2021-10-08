@@ -1,18 +1,31 @@
 <template>
     <div class="user-details">
-        <h1>{{ login }}</h1>
-        <img :src="avatarUrl" alt="" />
-        <a :href="htmlUrl" target="_blank">Github</a>
-        <h2>Repositorios: {{ publicRepos }}</h2>
-        <h3>Seguidores: {{ followers }}</h3>
-        <h3>Seguindo: {{ following }}</h3>
+        <div v-if="isLoading" class="loading">Carregando</div>
+        <Notfound v-else-if="!login" />
+        <div v-else class="user">
+            <h1>{{ login }}</h1>
+            <img :src="avatarUrl" alt="" />
+            <a :href="htmlUrl" target="_blank">Github</a>
+            <h2>Repositorios: {{ publicRepos }}</h2>
+            <h3>Seguidores: {{ followers }}</h3>
+            <h3>Seguindo: {{ following }}</h3>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import Notfound from '../notFound/notFound.vue';
 export default {
     props: ['id'],
+    data() {
+        return {
+            isLoading: true,
+        };
+    },
+    components: {
+        Notfound,
+    },
     methods: {
         ...mapActions(['getUserData']),
     },
@@ -36,8 +49,9 @@ export default {
             return this.$store.getters.following;
         },
     },
-    created() {
-        this.getUserData(this.id);
+    async beforeMount() {
+        await this.getUserData(this.id);
+        this.isLoading = false;
     },
 };
 </script>

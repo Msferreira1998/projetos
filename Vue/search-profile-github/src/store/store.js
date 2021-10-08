@@ -36,16 +36,26 @@ export default new Vuex.Store({
         saveUserRepos(state, payload) {
             state.repos = payload;
         },
+        destroyUserData(state, payload) {
+            state.UserData = payload;
+        },
+        destroyRepos(state, payload) {
+            state.UserData = payload;
+        },
     },
     actions: {
         async getUserData(context, payload) {
+            context.commit('destroyUserData', {});
+            context.commit('destroyRepos', {});
             try {
                 const user = await api.get(`/${payload}`);
                 const repos = await api.get(`/${payload}/repos`);
                 context.commit('saveUserData', user.data);
                 context.commit('saveUserRepos', repos.data);
+                return;
             } catch (e) {
-                console.log(e);
+                console.log(e.response.status);
+                return e.response.status;
             }
         },
     },
