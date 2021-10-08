@@ -52,7 +52,6 @@ export const Input = styled.input`
 
 export const Button = styled.button`
     background-color: chocolate;
-    /* outline: none; */
     border: none;
     padding: 5px;
     border-radius: 10px;
@@ -66,9 +65,7 @@ export const Button = styled.button`
 
     :active {
         transform: scale(0.98);
-        /* Scaling button to 0.98 to its original size */
         box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-        /* Lowering the shadow */
     }
 `;
 
