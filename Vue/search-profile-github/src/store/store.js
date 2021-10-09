@@ -7,11 +7,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         UserData: {},
-        repos: {},
     },
     getters: {
         login(state) {
             return state.UserData.login;
+        },
+        name(state) {
+            return state.UserData.name;
         },
         avatarUrl(state) {
             return state.UserData.avatar_url;
@@ -33,29 +35,20 @@ export default new Vuex.Store({
         saveUserData(state, payload) {
             state.UserData = payload;
         },
-        saveUserRepos(state, payload) {
-            state.repos = payload;
-        },
+
         destroyUserData(state, payload) {
-            state.UserData = payload;
-        },
-        destroyRepos(state, payload) {
             state.UserData = payload;
         },
     },
     actions: {
         async getUserData(context, payload) {
             context.commit('destroyUserData', {});
-            context.commit('destroyRepos', {});
             try {
                 const user = await api.get(`/${payload}`);
-                const repos = await api.get(`/${payload}/repos`);
                 context.commit('saveUserData', user.data);
-                context.commit('saveUserRepos', repos.data);
                 return;
             } catch (e) {
                 console.log(e.response.status);
-                return e.response.status;
             }
         },
     },
