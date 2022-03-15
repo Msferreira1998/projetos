@@ -5,3 +5,7 @@ export function usersList(state) {
 export function userPage(state) {
   return state.userPage;
 }
+
+export function userRepos(state) {
+  return state.userRepos;
+}
